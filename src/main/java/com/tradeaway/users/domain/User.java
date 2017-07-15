@@ -27,4 +27,9 @@ public class User {
     @NotNull
     private String type;
 
+    public User(String fname, String lname, String type) {
+        this.fname = fname;
+        this.lname = lname;
+        this.type = type;
+    }
 }
