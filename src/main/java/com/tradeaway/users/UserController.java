@@ -15,7 +15,14 @@ import java.util.List;
  * Created by noumanm on 7/15/17.
  */
 
+/**
+ * I was getting a Access-Control-Allow-Origin which seems to be very Chrome specific.
+ * One solution is to download Chrome extention Access-Control-Allow-Origin... Another solution is to use
+ * @CrossOrigin for the server side class
+ */
+
 @Controller
+@CrossOrigin
 @EnableAutoConfiguration
 public class UserController {
 
