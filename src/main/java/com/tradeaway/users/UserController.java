@@ -59,4 +59,12 @@ public class UserController {
         searchResult.forEach(response::add);
         return ResponseEntity.ok().body(response);
     }
+
+    @GetMapping(value = "/isUserIDAvailable/{userid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> isUserIDAvailable (@PathVariable String userid) {
+        final User user = userRepository.findByuserId(userid);
+        if (user == null)
+            return ResponseEntity.ok().body(new Boolean(true));
+        return ResponseEntity.ok().body(new Boolean(false));
+    }
 }

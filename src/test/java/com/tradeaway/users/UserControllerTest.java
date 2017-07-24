@@ -57,7 +57,7 @@ public class UserControllerTest {
 
     @Test
     public void Should_SearchUserDetails_When_ValidLastNameIsGiven () throws IOException {
-        String expected = "{\"id\":\"9999\",\"fname\":\"TestMango\",\"lname\":\"TestLastMango\",\"type\":\"Buyer\"}";
+        String expected = "{\"id\":\"9999\",\"fname\":\"TestMango\",\"lname\":\"TestLastMango\",\"type\":\"Buyer\",\"userId\":\"Lucky123\"}";
 
         String endpointURL = "http://localhost:8080/findUser/TestLastMango";
 
@@ -69,9 +69,31 @@ public class UserControllerTest {
     }
 
     @Test
+    public void Should_ReturnTrueWhenUserNameIsAvailableToUse () throws IOException {
+        String endpointURL = "http://localhost:8080/isUserIDAvailable/PAPA1234";
+
+        ResponseEntity<Boolean> responseEntity = restTemplate
+                .getForEntity(endpointURL,
+                        Boolean.class);
+        final Boolean isUserIDAvailable = responseEntity.getBody();
+        assertThat(isUserIDAvailable).isEqualTo(new Boolean(true));
+    }
+
+    @Test
+    public void Should_ReturnFalseWhenUserNameIsUnAvailableToUse () throws IOException {
+        String endpointURL = "http://localhost:8080/isUserIDAvailable/Lucky123";
+
+        ResponseEntity<Boolean> responseEntity = restTemplate
+                .getForEntity(endpointURL,
+                        Boolean.class);
+        final Boolean isUserIDAvailable = responseEntity.getBody();
+        assertThat(isUserIDAvailable).isEqualTo(new Boolean(false));
+    }
+
+    @Test
     public void Should_CreateUserDetails_When_ValidUserIsGiven () throws IOException {
         // create payload
-        User body = new User("TryFristName", "LuckyLastName", "Seller");
+        User body = new User("TryFristName", "LuckyLastName", "Seller", "Lucky123");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<User> entity = new HttpEntity<>(body, headers);

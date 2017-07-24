@@ -15,7 +15,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 @RequiredArgsConstructor
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -27,9 +28,14 @@ public class User {
     @NotNull
     private String type;
 
-    public User(String fname, String lname, String type) {
+    @NotNull
+    @Column(name = "userid")
+    private String userId;
+
+    public User(String fname, String lname, String type, String userId) {
         this.fname = fname;
         this.lname = lname;
         this.type = type;
+        this.userId = userId;
     }
 }
